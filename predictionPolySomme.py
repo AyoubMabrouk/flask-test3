@@ -1,12 +1,26 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
+from sklearn.preprocessing import PolynomialFeatures, LabelEncoder
+
 # Load data from a csv file
 pa =pd.read_csv('pa.txt', sep = ';')
-Q1 = pa.quantile(0.25)
-Q3 = pa.quantile(0.75)
+paiement_dataEncoded=pa.copy()
+labelencoder = LabelEncoder()
+paiement_dataEncoded['RIBBeneficiaire'] = labelencoder.fit_transform(pa['RIBBeneficiaire'])
+paiement_dataEncoded['BanqueBeneficiaire'] = labelencoder.fit_transform(pa['BanqueBeneficiaire'])
+paiement_dataEncoded['AgenceBeneficiaire'] = labelencoder.fit_transform(pa['AgenceBeneficiaire'])
+paiement_dataEncoded['RIBPayeur'] = labelencoder.fit_transform(pa['RIBPayeur'])
+paiement_dataEncoded['BanquePayeur'] = labelencoder.fit_transform(pa['BanquePayeur'])
+paiement_dataEncoded['AgencePayeur'] = labelencoder.fit_transform(pa['AgencePayeur'])
+paiement_dataEncoded['DateOperation'] = labelencoder.fit_transform(pa['DateOperation'])
+paiement_dataEncoded['NumeroLigne'] = labelencoder.fit_transform(pa['NumeroLigne'])
+
+
+
+Q1 = paiement_dataEncoded.quantile(0.25)
+Q3 = paiement_dataEncoded.quantile(0.75)
 IQR = Q3 - Q1
-paPropre = pa[~((pa < (Q1 - 1.5 * IQR)) | (pa > (Q3 + 1.5 * IQR))).any(axis=1)]
+paPropre = paiement_dataEncoded[~((paiement_dataEncoded < (Q1 - 1.5 * IQR)) | (paiement_dataEncoded > (Q3 + 1.5 * IQR))).any(axis=1)]
 dataDate=paPropre.groupby(['DateOperation']).sum()
 dataDate['DateOperation']=dataDate.index
 train_size = 0.7
