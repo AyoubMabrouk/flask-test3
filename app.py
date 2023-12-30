@@ -20,9 +20,9 @@ def greeter():
 	# courbe()
 	result = predictPolySomme(float(request.form['name_input'][8:10]))
 	# Format the result with two decimal places using format()
-	formatted_result = format(result, ".2f")
-	formatted_result_str = str(formatted_result)
-	flash("For date = " + str(request.form['name_input']) + ", Sum of Montant = "+formatted_result_str)
+	#formatted_result = format(result, ".2f")
+	#formatted_result_str = str(formatted_result)
+	flash("For date = " + str(request.form['name_input']) + ", Sum of Montant = "+result)
 	return render_template("index.html")
 
 
