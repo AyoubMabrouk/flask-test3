@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, flash
+from sklearn.preprocessing import LabelEncoder
+
 from predictionPolySomme import predictPolySomme
 import predictRejetCCE
 # from prediction import courbe
@@ -31,10 +33,17 @@ def greeter():
 
 def basic():
 	if request.method == 'POST':
+		labelencoder = LabelEncoder()
+
+
 		Etat = request.form['Etat']
+		Etat= labelencoder.fit_transform([[Etat]])[0]
 		IdTypeLot = request.form['IdTypeLot']
+		IdTypeLot= labelencoder.fit_transform([[IdTypeLot]])[0]
 		BanquePayeur = request.form['BanquePayeur']
+		BanquePayeur= labelencoder.fit_transform([[BanquePayeur]])[0]
 		MotifRejet = request.form['MotifRejet']
+		MotifRejet= labelencoder.fit_transform([[MotifRejet]])[0]
 		y_pred = [[Etat, IdTypeLot, BanquePayeur, MotifRejet]]
 		trained_model = predictRejetCCE.training_model()
 		prediction_value = trained_model.predict(y_pred)
