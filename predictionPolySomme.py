@@ -1,9 +1,11 @@
+import numpy as np
 import pandas as pd
+
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 
 # Load data from a csv file
-pa =pd.read_csv('pa.txt', sep = ';')
+pa =pd.read_csv('pa.txt', sep =';')
 
 Q1 = pa.quantile(0.25)
 Q3 = pa.quantile(0.75)
