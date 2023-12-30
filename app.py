@@ -4,6 +4,7 @@ import predictRejetCCE
 # from prediction import courbe
 
 app = Flask(__name__)
+app.secret_key = "manbearpig_MUDMAN888"
 @app.route('/')
 def home():
 	return 'Hello, this is the home page!'
