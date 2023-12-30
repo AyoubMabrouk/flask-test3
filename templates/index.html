@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Say Hello</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <br>
+    <h1 style="color:white"><strong>Sum of Paiements Per Day</strong></h1>
+    <img src="https://media.npr.org/assets/img/2021/06/17/gettyimages-157586268-ea42ad62d7639fee566221d4c545427e8c0d1a22-s1100-c50.jpg" style="border-radius: 50%;" alt="image prediction not found">
+    <!--
+    <img src="{{url_for('static', filename='/Image/courbe.png')}} " alt="image courbe not found" style="height: auto;width: auto;">
+    -->
+    <br>
+    <form action="greet" method="post">
+        {% for message in get_flashed_messages() %}
+             <p>{{ message }}</p>
+         {% endfor %}
+        <br>
+        <input type="date" id="start" name="name_input"
+
+               min="2018-01-01" max="2030-12-31">
+
+
+        <!--<input type="text" name="name_input">-->
+        <br>
+        <input type="submit" value="Predict" id="greet">
+
+
+    </form>
+</body>
+</html>
